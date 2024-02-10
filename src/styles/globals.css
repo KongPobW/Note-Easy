@@ -28,9 +28,18 @@
     gap: 2rem;
 }
 
+.detail-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
 @media (max-width: 992px) {
     .note-wrapper {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .detail-wrapper {
+        width: 70%;
     }
 }
 
@@ -38,5 +47,15 @@
     .note-wrapper {
         display: flex;
         flex-direction: column;
+    }
+
+    .detail-wrapper {
+        width: 80%;
+    }
+}
+
+@media (max-width: 580px) {
+    .detail-wrapper {
+        width: 90%;
     }
 }

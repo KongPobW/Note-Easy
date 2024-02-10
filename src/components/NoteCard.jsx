@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
-export default function NoteCard() {
+export default function NoteCard({ setView }) {
     return (
         <div className="mt-8 bg-amber-50">
             <div className="flex flex-col w-full min-h-150 h-full rounded-lg p-6 overflow-hidden">
@@ -13,7 +13,7 @@ export default function NoteCard() {
                         Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro, cum earum. Delectus, error consectetur suscipit magnam sunt laborum ex quod. Iusto at hic maxime totam blanditiis nihil voluptates, iure itaque?
                     </p>
                 </div>
-                <span className="text-gray-500 text-sm cursor-pointer">read more</span>
+                <span className="text-gray-500 text-sm cursor-pointer" onClick={() => setView(true)}>read more</span>
                 <div className="flex items-center justify-between mt-2">
                     <div className="text-gray-500 text-sm italic">
                         {new Date().toDateString()} | admin
