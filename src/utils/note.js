@@ -1,3 +1,5 @@
+import { getCurrentDate } from "./date";
+
 class NoteManager {
 
     static async getNotes(username) {
@@ -13,6 +15,22 @@ class NoteManager {
             return await res.json();
         } else {
             return null;
+        }
+    }
+
+    static async add(title, content, username) {
+        if (!title || !content || !username) {
+            throw new Error("title, content, and username are undefined");
+        }
+
+        const result = await fetch(`/api/note/${title}/${content}/${getCurrentDate()}/${username}`, {
+            method: "POST"
+        });
+
+        if (result.ok) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

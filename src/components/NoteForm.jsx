@@ -1,8 +1,10 @@
+import NoteManager from "@/utils/note";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const NoteForm = ({ topic = "Add Note", data = "" }) => {
+const NoteForm = ({ topic = "Add Note", data = "", username = null }) => {
 
     const [title, setTitle] = useState(data ? data.title : "");
     const [content, setContent] = useState(data ? data.content : "");
@@ -15,8 +17,17 @@ const NoteForm = ({ topic = "Add Note", data = "" }) => {
         setContent(e.target.value);
     };
 
+    const router = useRouter();
+
     const filterButton = async () => {
-        if (title === "Add Note") {
+        if (topic === "Add Note") {
+            const isSuccess = await NoteManager.add(title, content, username);
+
+            if (isSuccess) {
+                router.push("home");
+            } else {
+                toast.error("Failed adding new note");
+            }
         }
     };
 
@@ -29,7 +40,7 @@ const NoteForm = ({ topic = "Add Note", data = "" }) => {
                     <label className="block text-gray-600 text-left font-semibold">Title</label>
                     <input
                         type="text"
-                        className="border p-2 w-full"
+                        className="border p-2 w-full bg-amber-50"
                         value={title}
                         onChange={handleTitleChange}
                     />
@@ -40,7 +51,7 @@ const NoteForm = ({ topic = "Add Note", data = "" }) => {
                     <textarea
                         rows="10"
                         cols="10"
-                        className="border p-2 w-full"
+                        className="border p-2 w-full bg-amber-50"
                         value={content}
                         onChange={handleContentChange}
                     />

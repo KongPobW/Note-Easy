@@ -11,6 +11,23 @@ export default async function handler(req, res) {
 
         switch (req.method) {
 
+            case "POST":
+                const date = `${detail[3]}/${detail[2]}/${detail[4]}`;
+                const newNote = new Note({
+                    title: detail[0],
+                    content: detail[1],
+                    date: date,
+                    username: detail[5]
+                });
+
+                const resultPost = await newNote.save();
+
+                if (resultPost) {
+                    return res.status(200).json({ success: true });
+                } else {
+                    return res.status(500).json({ success: false });
+                }
+
             case "GET":
                 const username = detail[0];
                 const notes = await Note.find({ username: username }).sort({ date: 1 });
