@@ -1,10 +1,21 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 export default function NoteCard({ setView, setIndex, note, index }) {
+
     const handleReadMore = () => {
         setView(true);
         setIndex(index);
+    };
+
+    const router = useRouter();
+
+    const handleEdit = () => {
+        router.push({
+            pathname: "edit-note",
+            query: { data: JSON.stringify(note) }
+        });
     };
 
     return (
@@ -20,7 +31,7 @@ export default function NoteCard({ setView, setIndex, note, index }) {
                         {note.date} | {note.username}
                     </div>
                     <div className="cursor-pointer">
-                        <FontAwesomeIcon icon={faEdit} />
+                        <FontAwesomeIcon icon={faEdit} onClick={() => handleEdit()} />
                     </div>
                 </div>
             </div>
