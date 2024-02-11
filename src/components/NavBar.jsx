@@ -1,5 +1,4 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faHouse, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import NavIcon from "./NavIcon";
 import { useRouter } from "next/router";
 
@@ -15,6 +14,10 @@ export default function NavBar() {
         router.push("home");
     };
 
+    const handleLogOut = () => {
+        router.push("/");
+    };
+
     return (
         <div className="w-full h-16 flex items-center justify-center shadow-md bg-gray-400 sticky top-0">
             <div className="flex items-center justify-between w-full text-white">
@@ -22,6 +25,7 @@ export default function NavBar() {
                 <div className="flex items-center">
                     <NavIcon method={handleBackHome} icon={faHouse} />
                     <NavIcon method={handlePlusButton} icon={faPlus} />
+                    <NavIcon method={handleLogOut} icon={faRightFromBracket} />
                 </div>
             </div>
         </div>
