@@ -9,6 +9,8 @@ const NoteForm = ({ topic = "Add Note", data = "", username = null }) => {
     const [title, setTitle] = useState(data ? data.title : "");
     const [content, setContent] = useState(data ? data.content : "");
 
+    const id = data ? data._id : null;
+
     const handleTitleChange = (e) => {
         setTitle(e.target.value);
     };
@@ -20,14 +22,32 @@ const NoteForm = ({ topic = "Add Note", data = "", username = null }) => {
     const router = useRouter();
 
     const filterButton = async () => {
-        if (topic === "Add Note") {
-            const isSuccess = await NoteManager.add(title, content, username);
 
-            if (isSuccess) {
-                router.push("home");
-            } else {
-                toast.error("Failed adding new note");
+        if (title && content) {
+
+            if (topic === "Add Note") {
+
+                const isSuccess = await NoteManager.add(title, content, username);
+
+                if (isSuccess) {
+                    router.push("home");
+                } else {
+                    toast.error("Failed adding new note");
+                }
+
+            } else if (topic === "Edit Note") {
+
+                const isSuccess = await NoteManager.edit(id, title, content);
+
+                if (isSuccess) {
+                    router.push("home");
+                } else {
+                    toast.error("Failed editing the note");
+                }
             }
+
+        } else {
+            toast.warn("Please fill title and content");
         }
     };
 

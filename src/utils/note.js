@@ -33,6 +33,22 @@ class NoteManager {
             return false;
         }
     }
+
+    static async edit(id, title, content) {
+        if (!id || !title || !content) {
+            throw new Error("id, title, and content are undefined");
+        }
+
+        const result = await fetch(`/api/note/${id}/${title}/${content}/${getCurrentDate()}`, {
+            method: "PUT"
+        });
+
+        if (result.ok) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 export default NoteManager;
