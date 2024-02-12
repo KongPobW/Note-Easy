@@ -1,10 +1,16 @@
 import NoteManager from "@/utils/note";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const NoteForm = ({ topic = "Add Note", data = "", username = null }) => {
+const NoteForm = ({ topic = "Add Note", data = "" }) => {
+
+    const { data: session } = useSession();
+    console.log(session);
+
+    const userName = session.user.name.username;
 
     const [title, setTitle] = useState(data ? data.title : "");
     const [content, setContent] = useState(data ? data.content : "");
@@ -27,7 +33,7 @@ const NoteForm = ({ topic = "Add Note", data = "", username = null }) => {
 
             if (topic === "Add Note") {
 
-                const isSuccess = await NoteManager.add(title, content, username);
+                const isSuccess = await NoteManager.add(title, content, userName);
 
                 if (isSuccess) {
                     router.push("home");
