@@ -6,8 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function LoginForm() {
 
-    const [username, setUsername] = useState("admin1");
-    const [password, setPassword] = useState("admin1eiei");
+    const [username, setUsername] = useState("admin1"); //admin2
+    const [password, setPassword] = useState("admin1eiei"); //admin2eiei
     const [error, setError] = useState("");
 
     const router = useRouter();
