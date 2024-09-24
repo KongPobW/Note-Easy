@@ -15,6 +15,14 @@ export default function Home() {
   const [notes, setNotes] = useState();
   const [noteIndex, setNoteIndex] = useState();
 
+  const refreshNotes = async () => {
+    const notesData = await NoteManager.getNotes(userName);
+    
+    if (notesData) {
+      setNotes(notesData);
+    }
+  };
+
   useEffect(() => {
     const fetchNotes = async () => {
       const notesData = await NoteManager.getNotes(userName);
@@ -38,7 +46,7 @@ export default function Home() {
         <div className="note-wrapper">
           {notes && notes.length > 0 ? (
             notes.map((note, index) => (
-              <NoteCard setView={setOnViewNote} setIndex={setNoteIndex} note={note} index={index} />
+              <NoteCard setView={setOnViewNote} setIndex={setNoteIndex} note={note} index={index} refreshNotes={refreshNotes} />
             ))
           ) : (
             <p></p>

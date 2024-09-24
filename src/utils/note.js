@@ -49,6 +49,22 @@ class NoteManager {
             return false;
         }
     }
+
+    static async delete(id) {
+        if (!id) {
+            throw new Error("id is undefined");
+        }
+
+        const result = await fetch(`/api/note/${id}`, {
+            method: "DELETE"
+        });
+
+        if (result.ok) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 export default NoteManager;

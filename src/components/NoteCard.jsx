@@ -1,8 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import NoteManager from "@/utils/note";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function NoteCard({ setView, setIndex, note, index }) {
+export default function NoteCard({ setView, setIndex, note, index, refreshNotes }) {
 
     const handleReadMore = () => {
         setView(true);
@@ -16,6 +19,18 @@ export default function NoteCard({ setView, setIndex, note, index }) {
             pathname: "edit-note",
             query: { data: JSON.stringify(note) }
         });
+    };
+
+    const handleDelete = async () => {
+
+        const isSuccess = await NoteManager.delete(note._id);
+
+        if (isSuccess) {
+            refreshNotes();
+        } else {
+            toast.error("Failed deleting the note");
+        }
+
     };
 
     return (
@@ -32,9 +47,11 @@ export default function NoteCard({ setView, setIndex, note, index }) {
                     </div>
                     <div className="cursor-pointer">
                         <FontAwesomeIcon icon={faEdit} onClick={() => handleEdit()} />
+                        <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete()} className="ml-2" />
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }
