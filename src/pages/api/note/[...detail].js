@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
             case "GET":
                 const username = detail[0];
-                const notes = await Note.find({ username: username }).sort({ date: 1 });
+                const notes = await Note.find({ username: username });
                 return res.status(200).json(notes);
 
             case "PUT":
